@@ -5,55 +5,47 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 var time = 0
+var Tonada = require("Tonada");
 cc.Class({
     extends: cc.Component,
-    Tonada: require("Tonada"),
+    
     properties: {
-        buttons: [cc.Button],
-        Sonidos: [cc.AudioClip]
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+        height: 20,
+        Buttons: {
+            default: [],
+            type: [cc.Button]
+        },
+        Sonidos: {
+            default: [],
+            url: [cc.AudioClip]
+        },
+        audio: {
+            default: null,
+            type: cc.AudioClip
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        cc.log("Hola, estoy presente en load")
-
-        var button = this.node.getComponent(cc.Button);
+        //var button = this.node.getComponent(cc.Button);
         
-        button.node.on(cc.Node.EventType.TOUCH_START, this.playAudio, this);
-        sonido = new this.Tonada(50, 3.3)
-        cc.log("Sonidos: "+ sonido.numButton)
+        //button.node.on(cc.Node.EventType.TOUCH_START, this.playAudio, this);
+        sonido = new Tonada(50, 3.3)
         this.linkAudios()
-        
-
     },
     
     start () {
     },
 
-    playAudio: function(Audio){
-        this.current = cc.audioEngine.play(Audio, false, 1);
-    },
-   
+
     linkAudios: function(){
-        cc.log(this.buttons[0])
-        for(var i=0; i<this.buttons.length;i++){
-            this.buttons[i].node.on(cc.Node.EventType.TOUCH_START, this.playAudio(Sonidos[i]), this)
+        cc.log(this.Buttons)
+        cc.log((this.Sonidos))
+        cc.log((this.audio))
+        for(var i=0; i<this.Buttons.length;i++){
+            this.Buttons[i].getComponent("button").audio = (this.Sonidos[i])
+            cc.log(this.Buttons[i].getComponent("button"))
         }
 
     },
@@ -66,5 +58,8 @@ cc.Class({
             
         }*/
         
+    },
+    playAudio: function(){
+        cc.log("HMM")
     },
 });
