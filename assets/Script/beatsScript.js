@@ -42,16 +42,17 @@ cc.Class({
         sonido = new Tonada(50, 3.3)
         
         if(this.Secuencia.length == 0){
+            cc.log("La secuencua está vacía, vamos a grabar")
             CURRENT_STATE = STATE_RECORDING
             firstButton = true;
             time = (Date.now())/1000
-            cc.log("Tiempo: "+this.time)
+            timePress = (Date.now())/1000
             //Link event with my own listening function
-            /*for(var i=0; i<this.Buttons.length;i++){
-                this.Buttons[i].node.on("Recording", function(event){
+            for(var i=0; i<this.Buttons.length;i++){
+                this.Buttons[i].node.on("Pendiente...", function(event){
                     this.recordSequence(event)
                     }, this)
-            }*/
+            }
         }
         this.linkAudios()
     },
@@ -61,19 +62,17 @@ cc.Class({
 
 
     linkAudios: function(){
-        cc.log(this.Buttons)
-        cc.log((this.Sonidos))
-        cc.log((this.audio))
         for(var i=0; i<this.Buttons.length;i++){
             this.Buttons[i].getComponent("button").audio = (this.Sonidos[i])
             this.Buttons[i].getComponent("button").number = i
-            cc.log(this.Buttons[i].getComponent("button"))
         }
 
     },
 
     recordSequence: function(event){
+        cc.log("Se presionó alguna tecla")
         if(CURRENT_STATE == STATE_RECORDING){
+            cc.log("Grabando")
         var rTime = 0
         if(firstButton){
             rTime = 0
@@ -91,15 +90,13 @@ cc.Class({
         
         switch(CURRENT_STATE){
             case STATE_RECORDING:
-                if((Date.now())/1000 - timePress >= 3){
+                if((Date.now())/1000 - timePress >= 5){
                     CURRENT_STATE = STATE_PLAY
-                    cc.log(CURRENT_STATE)
+                    cc.log("Cambiamos a: " +CURRENT_STATE)
                 }
                 break;
             case STATE_PLAY:
                 CURRENT_STATE = STATE_LISTENING
-                setTimeout(this.playSequence(), 10000);
-                cc.log("Hola de tocar?")
                 
                 break;
             case STATE_LISTENING:
@@ -109,11 +106,10 @@ cc.Class({
         
     },
     playAudio: function(){
-        cc.log("HMM")
     },
 
     playSequence: function(){
         //this.Buttons[0].node.emit(cc.Node.EventType.TOUCH_START)
-        cc.log("Acabo de tocar")
+        
     }
 });

@@ -21,20 +21,12 @@ cc.Class({
     },
     start () {
         this.node.on(cc.Node.EventType.TOUCH_START, function(event){
-            //this.node.emit("Recording")
             this.current = cc.audioEngine.play(this.audio,false, 1)
-            
-            //event.stopPropagation()
         }, this)
         time = (Date.now())/1000 
     },
 
     update (dt) {
-
-        if(time + 5 <= (Date.now())/1000){
-            this.node.emit(cc.Node.EventType.TOUCH_START, event)
-            time = (Date.now())/1000 
-            }
     },
 
     playAudio: function(){  
