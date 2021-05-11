@@ -4,13 +4,18 @@ cc.Class({
             default: 0,
             type: cc.Integer
         },
-        tRelative:{
+        tRelativeStart:{
+            default: 0,
+            type: cc.Float
+        },
+        tRelativeEnd:{
             default: 0,
             type: cc.Float
         }
     },
-    ctor: function (numButton, tRelative) {
+    ctor: function (numButton, tRelativeStart, tRelativeEnd) {
         this.numButton = numButton;
-        this.tRelative = tRelative;
+        this.tRelativeStart = tRelativeStart;
+        this.tRelativeEnd = tRelativeEnd
     }
 });
